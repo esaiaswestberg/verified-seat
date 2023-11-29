@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:verified_seat/pages/event.dart';
 import 'package:verified_seat/pages/locked.dart';
 
 void main() {
@@ -18,6 +19,9 @@ class VerifiedSeat extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LockedPage(),
+      routes: {
+        '/event': (context) => const EventPage(),
+      },
     );
   }
 }

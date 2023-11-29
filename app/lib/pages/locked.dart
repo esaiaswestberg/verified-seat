@@ -14,9 +14,8 @@ class LockedPage extends StatefulWidget {
 
 class _LockedPageState extends State<LockedPage> {
   void _onComplete(String code) {
-    for (int i = 0; i < 60; i++) {
-      print('Completed code: $code');
-    }
+    // TODO: Validate code
+    Navigator.pushReplacementNamed(context, '/event', arguments: code);
   }
 
   @override
