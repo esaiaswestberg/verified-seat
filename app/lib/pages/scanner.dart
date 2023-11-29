@@ -27,7 +27,6 @@ class _ScannerPageState extends State<ScannerPage> {
     // Define screen size
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
 
     // Build scanner
     return Stack(
