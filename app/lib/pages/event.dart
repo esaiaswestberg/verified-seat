@@ -9,6 +9,11 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> {
+  /// Navigate to the scanner page.
+  void _goToScanner() {
+    Navigator.pushNamed(context, '/scanner');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +27,7 @@ class _EventPageState extends State<EventPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: _goToScanner,
         child: const Icon(Icons.qr_code_scanner),
       ),
     );
