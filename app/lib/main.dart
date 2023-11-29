@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:verified_seat/pages/event.dart';
 import 'package:verified_seat/pages/locked.dart';
 import 'package:verified_seat/pages/scanner.dart';
+import 'package:verified_seat/pages/ticket.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,8 @@ class VerifiedSeat extends StatelessWidget {
       home: const LockedPage(),
       routes: {
         '/event': (context) => const EventPage(),
-        '/scanner': (context) => const ScannerPage()
+        '/scanner': (context) => const ScannerPage(),
+        '/ticket': (context) => const TicketPage(),
       },
     );
   }

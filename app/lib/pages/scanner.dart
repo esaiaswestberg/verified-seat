@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_mobile_vision/qr_camera.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({Key? key}) : super(key: key);
@@ -9,6 +9,22 @@ class ScannerPage extends StatefulWidget {
 }
 
 class _ScannerPageState extends State<ScannerPage> {
+  int _lastScanResult = 0;
+
+  /// Handle scan results.
+  void _scanResult(String? code) {
+    // Skip if no code.
+    if (code == null) return;
+
+    // Rate limit to 5 scans per second.
+    final now = DateTime.now().millisecondsSinceEpoch;
+    if (now - _lastScanResult < 1000) return;
+    _lastScanResult = now;
+
+    // Navigate to ticket page.
+    Navigator.pushReplacementNamed(context, '/ticket');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,29 +39,40 @@ class _ScannerPageState extends State<ScannerPage> {
     );
   }
 
+  /// Build QR code scanner.
   Stack _buildScanner() {
-    // Define screen size
+    // Define screen size.
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
-    // Build scanner
+    // Build scanner.
     return Stack(
       children: [
-        // QR code scanner
+        // QR code scanner.
         SizedBox(
           width: width,
           height: height,
-          child: QrCamera(
-            qrCodeCallback: (code) => print(code),
-          ),
+          child: _buildReader(),
         ),
 
-        // Overlay
+        // Overlay.
         _buildOverlay(),
       ],
     );
   }
 
+  Widget _buildReader() => MobileScanner(
+        fit: BoxFit.cover,
+        onDetect: (capture) {
+          final List<Barcode> barcodes = capture.barcodes;
+          for (final barcode in barcodes) {
+            final value = barcode.rawValue;
+            _scanResult(value);
+          }
+        },
+      );
+
+  /// Build scanner overlay.
   Widget _buildOverlay() {
     return Center(
       child: Icon(
