@@ -4,6 +4,8 @@ import 'package:verified_seat/pages/locked.dart';
 import 'package:verified_seat/pages/scanner.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const VerifiedSeat());
 }
 
